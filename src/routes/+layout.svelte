@@ -1,3 +1,6 @@
+<script lang="ts">
+</script>
+
 <svelte:head>
   <title>Heritage Oven Chronicle</title>
   <meta
