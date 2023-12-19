@@ -11,6 +11,7 @@ declare global {
       ingredients: { [key: string]: string };
       instructions: string[];
     };
+    type RecipeCard = App.Recipe & { flipped: boolean };
   }
 }
 
