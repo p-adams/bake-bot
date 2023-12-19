@@ -1,5 +1,10 @@
 <script lang="ts">
   export let data;
+  function ingredientsList(
+    recipe: Pick<App.Recipe, "ingredients">
+  ): [string, string][] {
+    return Object.entries(recipe.ingredients);
+  }
 </script>
 
 <h1>Welcome to Heritage Oven Chronicle</h1>
@@ -10,6 +15,11 @@
     {#each data.recipes as recipe}
       <div class="recipe-card">
         <h3>{recipe.name}</h3>
+        <ul>
+          {#each ingredientsList(recipe) as [key, val]}
+            <li>{key} - {val}</li>
+          {/each}
+        </ul>
       </div>
     {/each}
   </div>
