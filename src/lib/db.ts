@@ -1,4 +1,4 @@
-export const recipes = [
+export const recipes: App.Recipe[] = [
   {
     name: "Basic Sourdough Bread",
     ingredients: {
