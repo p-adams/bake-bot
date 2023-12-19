@@ -19,16 +19,35 @@
     {#each recipesCards as recipe}
       <!-- svelte-ignore a11y-no-static-element-interactions -->
       <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <div
-        class="recipe-card"
-        on:click={() => (recipe.flipped = !recipe.flipped)}
-      >
+      <div class="recipe-card">
         <h3>{recipe.name}</h3>
-        <ul>
-          {#each ingredientsList(recipe) as [key, val]}
-            <li>{key} - {val}</li>
-          {/each}
-        </ul>
+
+        {#if !recipe.flipped}<div class="card-content">
+            <ul>
+              {#each ingredientsList(recipe) as [key, val]}
+                <li>{key} - {val}</li>
+              {/each}
+            </ul>
+            <div class="link-container">
+              <a href="#/" on:click={() => (recipe.flipped = !recipe.flipped)}
+                >View instructions</a
+              >
+            </div>
+          </div>
+        {:else}
+          <div class="card-content">
+            <ul>
+              {#each recipe.instructions as instruction}
+                <li>{instruction}</li>
+              {/each}
+            </ul>
+            <div class="link-container">
+              <a href="#/" on:click={() => (recipe.flipped = !recipe.flipped)}
+                >Back to ingredients</a
+              >
+            </div>
+          </div>
+        {/if}
       </div>
     {/each}
   </div>
@@ -41,5 +60,14 @@
   }
   .recipe-card {
     outline: 1px solid gray;
+    padding: 10px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .link-container {
+    display: flex;
+    justify-content: end;
   }
 </style>
