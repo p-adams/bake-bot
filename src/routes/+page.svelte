@@ -6,12 +6,19 @@
     ...recipe,
     flipped: false,
   }));
+  let isRecipeCreateDialogOpen = false;
 </script>
 
 <h1>Welcome to Heritage Oven Chronicle</h1>
 
 <section>
   <h2>Recipes</h2>
+  <button on:click={() => (isRecipeCreateDialogOpen = true)}
+    >Create Recipe</button
+  >
+  <dialog open={isRecipeCreateDialogOpen}>
+    <button on:click={() => (isRecipeCreateDialogOpen = false)}>Close</button>
+  </dialog>
   <div class="recipe-grid">
     {#each recipesCards as recipe}
       <RecipeCard
