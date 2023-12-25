@@ -2,19 +2,15 @@
   import RecipeCard from "$lib/RecipeCard.svelte";
 
   export let data;
-  $: recipesCards = data.recipes.map<App.RecipeCard>((recipe) => ({
+  $: recipes = data.recipes;
+  $: recipesCards = recipes.map<App.RecipeCard>((recipe) => ({
     ...recipe,
     flipped: false,
   }));
   let isRecipeCreateDialogOpen = false;
   let recipeData: App.Recipe = {
     name: "",
-    ingredients: {
-      starter: "1 cup active sourdough starter",
-      water: "1 1/2 cups warm water",
-      flour: "4 cups bread flour",
-      salt: "1 1/2 teaspoons salt",
-    },
+    ingredients: {},
     instructions: [],
   };
   let ingredient = {
@@ -35,6 +31,15 @@
   function handleNewInstruction() {
     recipeData.instructions = [...recipeData.instructions, instruction];
     instruction = "";
+  }
+  function createRecipe() {
+    recipes = [...recipes, recipeData];
+    isRecipeCreateDialogOpen = false;
+    recipeData = {
+      name: "",
+      ingredients: {},
+      instructions: [],
+    };
   }
 </script>
 
@@ -83,6 +88,7 @@
       </label>
 
       <button on:click={() => (isRecipeCreateDialogOpen = false)}>Close</button>
+      <button on:click={() => createRecipe()}>Create</button>
     </form>
   </dialog>
   <div class="recipe-grid">
