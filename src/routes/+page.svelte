@@ -10,7 +10,10 @@
   let isRecipeCreateDialogOpen = false;
   let recipeData: App.Recipe = {
     name: "",
-    ingredients: {},
+    ingredients: {
+      sugar: "1 cup",
+      flour: "3 cup",
+    },
     instructions: [],
   };
   let ingredient = {
@@ -31,6 +34,16 @@
   function handleNewInstruction() {
     recipeData.instructions = [...recipeData.instructions, instruction];
     instruction = "";
+  }
+  function removeIngredient(ingredientKey: string) {
+    const { [ingredientKey]: deletedKey, ...updatedIngredients } =
+      recipeData.ingredients;
+    recipeData = {
+      ...recipeData,
+      ingredients: {
+        ...updatedIngredients,
+      },
+    };
   }
   function createRecipe() {
     recipes = [...recipes, recipeData];
@@ -60,7 +73,12 @@
         Ingredients
         <ul>
           {#each Object.entries(recipeData.ingredients) as [ingredient, amount]}
-            <li>{ingredient} - {amount}</li>
+            <li class="list-item">
+              <div>{ingredient} - {amount}</div>
+              <button on:click={() => removeIngredient(ingredient)}
+                >remove</button
+              >
+            </li>
           {/each}
         </ul>
 
