@@ -45,6 +45,11 @@
       },
     };
   }
+  function removeInstruction(ingredientKey: string) {
+    recipeData.instructions = recipeData.instructions.filter(
+      (i) => i !== ingredientKey
+    );
+  }
   function createRecipe() {
     recipes = [...recipes, recipeData];
     isRecipeCreateDialogOpen = false;
@@ -98,7 +103,12 @@
         Instructions
         <ul>
           {#each recipeData.instructions as instruction}
-            <li>{instruction}</li>
+            <li>
+              {instruction}
+              <button on:click={() => removeInstruction(instruction)}
+                >remove</button
+              >
+            </li>
           {/each}
         </ul>
         <input bind:value={instruction} />
